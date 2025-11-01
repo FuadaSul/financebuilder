@@ -14,10 +14,10 @@ export default function Home() {
           <li className="hover:underline cursor-pointer">Über uns</li>
         </ul>
         <div className="flex items-center gap-4">
-        <button className="bg-white text-black font-semibold px-3 py-1 rounded-lg hover:bg-Orange-100 transition">
-          Login
+        <button className="bg-white text-black font-semibold px-3 py-1 rounded-lg hover:bg-blue-200 transition">
+        Login
         </button>
-        <button className="w-8 h-8 bg-white rounded-full  flex items-center justify-center text-black font-bold hover:bg-orange-100 transition">
+        <button className="w-8 h-8 bg-white rounded-full  flex items-center justify-center text-black font-bold hover:bg-blue-200 transition">
           U
         </button>
       </div>
