@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
 import BudgetLiveCircle from "@/app/components/BudgetLiveCircle";
-import Link from "next/link";
-import BudgetCircle from "./components/BudgetCircle";
 import BudgetExampleCircle from "@/app/components/BudgetExampleCircle";
 
 
