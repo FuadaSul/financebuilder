@@ -338,62 +338,92 @@ const [selectedCategory, setSelectedCategory] = useState("miete");
         </section>
 
         {/* Über uns / Unser Team Seite */}
-        <section id="about" className="about-section">
-          <div className="container">
-            <h2 className="team-title">Unser Team</h2>
-            <p className="team-description">
-              Unser Team besteht aus engagierten Studierenden, die gemeinsam eine moderne und verständliche Plattform für Finanzbildung entwickeln
-            </p>
-            <div className="team-grid">
-              <div className="team-card">
-                <div className="team-image">
-                  <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="60" cy="60" r="60" fill="#d4e9d4"/>
-                    <circle cx="60" cy="45" r="20" stroke="#2d5016" strokeWidth="3" fill="none"/>
-                    <path d="M30 95 Q30 75 60 75 Q90 75 90 95" stroke="#2d5016" strokeWidth="3" fill="none"/>
-                  </svg>
-                </div>
-                <h3 className="team-name">Fuada Sulejmani</h3>
-                <p className="team-role">Digital Marketing</p>
-                <div className="team-social">
-                  <a href="#" className="social-icon" aria-label="Facebook">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                    </svg>
-                  </a>
-                  <a href="#" className="social-icon" aria-label="WhatsApp">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-              <div className="team-card">
-                <div className="team-image">
-                  <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="60" cy="60" r="60" fill="#d4e9d4"/>
-                    <circle cx="60" cy="45" r="20" stroke="#2d5016" strokeWidth="3" fill="none"/>
-                    <path d="M30 95 Q30 75 60 75 Q90 75 90 95" stroke="#2d5016" strokeWidth="3" fill="none"/>
-                  </svg>
-                </div>
-                <h3 className="team-name">Omar Haiba</h3>
-                <p className="team-role">Digital Marketing</p>
-                <div className="team-social">
-                  <a href="#" className="social-icon" aria-label="Facebook">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                    </svg>
-                  </a>
-                  <a href="#" className="social-icon" aria-label="WhatsApp">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+<section id="about" className="about-section">
+  <div className="container">
+    <h2 className="team-title">Unser Team</h2>
+    <p className="team-description">
+      Unser Team besteht aus engagierten Studierenden, die gemeinsam eine moderne
+      und verständliche Plattform für Finanzbildung entwickeln
+    </p>
+
+    <div className="team-grid">
+      {/* Teammitglied 1 */}
+      <div className="team-card">
+        <div className="team-image">
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="60" fill="#d4e9d4" />
+            <circle cx="60" cy="45" r="20" stroke="#2d5016" strokeWidth="3" fill="none" />
+            <path d="M30 95 Q30 75 60 75 Q90 75 90 95" stroke="#2d5016" strokeWidth="3" fill="none" />
+          </svg>
+        </div>
+        <h3 className="team-name">Fuada Sulejmani</h3>
+        <p className="team-role">Digital Marketing</p>
+        <div className="team-social">
+          <a href="#" className="social-icon" aria-label="Facebook">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+          </a>
+          <a href="#" className="social-icon" aria-label="WhatsApp">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      {/* Teammitglied 2 */}
+      <div className="team-card">
+        <div className="team-image">
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="60" fill="#d4e9d4" />
+            <circle cx="60" cy="45" r="20" stroke="#2d5016" strokeWidth="3" fill="none" />
+            <path d="M30 95 Q30 75 60 75 Q90 75 90 95" stroke="#2d5016" strokeWidth="3" fill="none" />
+          </svg>
+        </div>
+        <h3 className="team-name">Omar Haiba</h3>
+        <p className="team-role">Digital Marketing</p>
+        <div className="team-social">
+          <a href="#" className="social-icon" aria-label="Facebook">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+          </a>
+          <a href="#" className="social-icon" aria-label="WhatsApp">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      {/* Teammitglied 3 */}
+      <div className="team-card">
+        <div className="team-image">
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="60" fill="#d4e9d4" />
+            <circle cx="60" cy="45" r="20" stroke="#2d5016" strokeWidth="3" fill="none" />
+            <path d="M30 95 Q30 75 60 75 Q90 75 90 95" stroke="#2d5016" strokeWidth="3" fill="none" />
+          </svg>
+        </div>
+        <h3 className="team-name">Esma Acar</h3>
+        <p className="team-role">Digital Marketing</p>
+        <div className="team-social">
+          <a href="#" className="social-icon" aria-label="Facebook">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+          </a>
+          <a href="#" className="social-icon" aria-label="WhatsApp">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
         {/* Community Sektion */}
         <section id="community" className="community-section">

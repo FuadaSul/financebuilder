@@ -69,12 +69,26 @@ export default function UeberUnsPage() {
                   <a href="#" className="social-icon">F</a>
                   <a href="#" className="social-icon">W</a>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-    </>
-  );
-}
+              </div> 
+              {/* Teammitglied 3 */}
+<div className="team-card">
+  <div className="team-image">
+    <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+      <circle cx="60" cy="60" r="60" fill="#d4e9d4" />
+      <circle cx="60" cy="45" r="20" stroke="#2d5016" strokeWidth="3" fill="none" />
+      <path d="M30 95 Q30 75 60 75 Q90 75 90 95" stroke="#2d5016" strokeWidth="3" fill="none" />
+    </svg>
+  </div>
 
+  <h3 className="team-name">Esma Acar</h3>
+  <p className="team-role">Digital Marketing</p>
+
+  <div className="team-social">
+    <a href="#" className="social-icon">F</a>
+    <a href="#" className="social-icon">W</a>
+  </div>
+</div>
+</div> 
+</div>
+ </section> 
+ </main> </> ); }
