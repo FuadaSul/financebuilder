@@ -12,16 +12,43 @@
     --text-light: #6b7280;
     --bg-white: #ffffff;
     --bg-light-green: #e8f5e8;
+
+  /* Typografie-Skala */
+  --text-sm: 0.95rem;
+  --text-base: 1.05rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.6rem;
+  --text-2xl: 2.2rem;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
-    overflow-x: hidden;
-    background-color: var(--bg-white);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--text-color);
+  overflow-x: hidden;
+  background-color: var(--bg-white);
+  margin: 0;
 }
+
+h1, h2, h3 {
+  font-weight: 700;
+  color: var(--green-dark);
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--text-2xl);
+}
+
+h2 {
+  font-size: var(--text-xl);
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
 
 .container {
     max-width: 1200px;
@@ -1173,71 +1200,105 @@ body {
 }
 
 /* Schulden vermeiden Seite */
+/* ===================== */
+/* SCHULDEN VERMEIDEN    */
+/* ===================== */
+
 .schulden-vermeiden-section {
-    background-color: var(--bg-white);
-    padding: 100px 0;
+  background-color: var(--bg-white);
+  padding: 80px 0;
 }
 
 .schulden-title {
-    font-size: 2.5rem;
-    color: var(--green-dark);
-    text-align: center;
-    margin-bottom: 1rem;
-    font-weight: bold;
+  font-size: 2.5rem;
+  color: var(--green-dark);
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: bold;
 }
 
 .schulden-subtitle {
-    text-align: center;
-    font-size: 1.2rem;
-    color: var(--text-light);
-    margin-bottom: 4rem;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-light);
+  margin-bottom: 3rem;
 }
 
+/* Grid der drei Karten */
 .infographics-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
-    margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.5rem;
+  margin-top: 2rem;
 }
 
+/* einzelne Karte */
 .infographic-card {
-    background-color: var(--bg-light-green);
-    padding: 2.5rem;
-    border-radius: 15px;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  background-color: var(--bg-light-green);
+  padding: 2.5rem 2.2rem;
+  border-radius: 15px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+    background-color 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* Emoji + Überschrift zentriert */
+  text-align: center;
+  gap: 0.8rem;
 }
 
-.infographic-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    background-color: var(--green-light);
-}
-
+/* Emoji/Icon */
 .infographic-icon {
-    font-size: 4rem;
-    margin-bottom: 1.5rem;
-    display: block;
+  font-size: 3.3rem;
+  margin-bottom: 0.3rem;
 }
 
+/* Überschrift */
 .infographic-card h3 {
-    font-size: 1.5rem;
-    color: var(--green-dark);
-    margin-bottom: 1.5rem;
-    font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--green-dark);
+  margin: 0.2rem 0 0.8rem;
 }
 
+/* Text */
 .infographic-card p {
-    color: var(--text-color);
-    font-size: 1rem;
-    line-height: 1.8;
-    text-align: left;
-    flex-grow: 1;
+  text-align: left;       /* Text bleibt gut lesbar links */
+  max-width: 270px;
+  line-height: 1.7;
+  color: var(--text-color);
+  margin: 0;
 }
+
+/* Hover */
+.infographic-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background-color: var(--green-light);
+}
+
+/* ===================== */
+/* RESPONSIVE            */
+/* ===================== */
+
+@media (max-width: 1024px) {
+  .infographics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .infographics-grid {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+  }
+
+  .schulden-vermeiden-section {
+    padding: 70px 0;
+  }
+}
+
 
 /* Zurück Button */
 .back-button-container {
