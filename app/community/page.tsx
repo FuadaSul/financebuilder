@@ -20,41 +20,19 @@ export default function CommunityPage() {
         </div>
       </nav>
 
-      <main style={{ paddingTop: "70px" }}>
-        {/* ===================== */}
-        {/* COMMUNITY */}
-        {/* ===================== */}
-        <section id="community" className="community-section">
+      <main style={{ marginTop: "100px" }}>
+        <section className="community-section">
           <div className="container">
-            <div className="community-social">
-              <h3>Folge uns auf</h3>
+            <h2 className="community-title">Unsere Community</h2>
+            <p className="community-subtitle">
+              Werde Teil einer Community, die sich gegenseitig hilft, besser mit Geld umzugehen.
+            </p>
 
-              <div className="social-links">
-                <a href="#" className="social-link">
-                  <span>📸</span>
-                  <span>Instagram</span>
-                </a>
-
-                <a href="#" className="social-link">
-                  <span>💬</span>
-                  <span>Discord</span>
-                </a>
-
-                <a href="#" className="social-link">
-                  <span>📘</span>
-                  <span>Facebook</span>
-                </a>
-
-                <a href="#" className="social-link">
-                  <span>▶️</span>
-                  <span>YouTube</span>
-                </a>
-
-                <a href="#" className="social-link">
-                  <span>💼</span>
-                  <span>LinkedIn</span>
-                </a>
-              </div>
+            <div className="community-info">
+              <p>
+                In unserer Community tauschen sich Menschen über Finanzbildung, Budgetplanung und
+                Investitionen aus. Gemeinsam lernt man schneller und bleibt motiviert.
+              </p>
             </div>
           </div>
         </section>
@@ -62,4 +40,3 @@ export default function CommunityPage() {
     </>
   );
 }
-
