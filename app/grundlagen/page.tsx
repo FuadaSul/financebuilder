@@ -82,8 +82,8 @@ export default function GrundlagenPage() {
                 <div className="card-footer">
                   <h3>Schulden vermeiden</h3>
                   <p>
-                    Erfahre, wie du Schulden vermeidest und langfristig die Kontrolle
-                    über deine Finanzen behältst.
+                    Lerne, wie du Schulden vermeidest und deine Finanzen im Griff behältst.
+  Entdecke praktische Tipps für einen bewussten Umgang mit Geld.
                   </p>
                 </div>
               </Link>
