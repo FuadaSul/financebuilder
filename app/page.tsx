@@ -479,14 +479,14 @@ export default function HomePage() {
 
               <label>Betrag (EUR)</label>
               <input
-                type="number"
-                className="expense-amount"
-                placeholder="0.00"
-                min="0"
-                step="0.01"
-                value={row.amount}
-                onChange={(e) => updateRow(row.id, { amount: Number(e.target.value) || 0 })}
-              />
+  type="number"
+  className="expense-amount"
+  placeholder="0.00"
+  min="0"
+  step="0.01"
+  value={row.amount}
+  onChange={(e) => updateRow(row.id, { amount: e.target.value })}
+/>
 
               <button
                 type="button"
