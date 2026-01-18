@@ -10,7 +10,7 @@ import NotesSection from "./components/NotesSection";
 
 
 export default function HomePage() {
-  // Feedback-Formular
+  // Feedback-Formular 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [rating, setRating] = useState(0);
@@ -113,7 +113,11 @@ export default function HomePage() {
                 <h1 className="hero-title">
                   Mach den ersten Schritt zu deiner finanziellen Freiheit
                 </h1>
-                <button className="cta-button" id="ctaButton">
+
+                <button className="cta-button" id="ctaButton" onClick={() => {document.getElementById("grundlagen")?.scrollIntoView({
+                  behavior: "smooth"
+                });
+                }}>
                   Jetzt loslegen
                 </button>
               </div>
