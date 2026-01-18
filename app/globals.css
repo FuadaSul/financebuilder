@@ -2470,3 +2470,105 @@ svg circle {
   .next-btn:hover, .prev-btn:hover {
     background-color: #e0a800;
   }
+/* ===================== */
+/* LEGAL PAGE            */
+/* ===================== */
+
+.legal-page {
+  background: #f5f7f5;
+  min-height: 100vh;
+  padding: 80px 16px 40px;
+}
+
+.legal-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px 28px 40px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+/* Zurück-Button */
+.legal-back-wrapper {
+  margin-bottom: 16px;
+}
+
+.legal-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #2d5016;
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: #2d5016;
+  background: #f7fff5;
+}
+
+.legal-back-button:hover {
+  background: #2d5016;
+  color: #ffffff;
+}
+
+/* Tabs */
+.legal-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.legal-tab {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid #d0d5dd;
+  background: #ffffff;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.legal-tab:hover {
+  background: #f2f4f7;
+}
+
+.legal-tab.active {
+  background: #2d5016;
+  color: #ffffff;
+  border-color: #2d5016;
+}
+
+/* Textformatierung */
+.legal-content h1 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  color: #2d5016;
+}
+
+.legal-content h2 {
+  font-size: 1.1rem;
+  margin-top: 18px;
+  margin-bottom: 4px;
+  color: #1f3a10;
+}
+
+.legal-content p {
+  margin: 0 0 8px 0;
+  line-height: 1.6;
+  color: #333333;
+}
+
+.legal-content a {
+  color: #1f5fbf;
+  text-decoration: underline;
+}
+
+.legal-content a:hover {
+  color: #163f7f;
+}
+
+/* etwas Luft unten */
+.legal-content {
+  padding-top: 4px;
+}
