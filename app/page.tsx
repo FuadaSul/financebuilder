@@ -188,7 +188,7 @@ export default function HomePage() {
               </div>
               <div className="hero-image">
                 <img
-                  src="/hero-image.png"
+                  src="/ezgif.com-animated-gif-maker.gif"
                   alt="Mann am Schreibtisch"
                   className="hero-illustration-img"
                 />
