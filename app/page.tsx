@@ -2,7 +2,7 @@
 import { useState } from "react";
 import BudgetLiveCircle from "@/app/components/BudgetLiveCircle";
 import BudgetExampleCircle from "@/app/components/BudgetExampleCircle";
-
+import CoinStack from "@/app/components/CoinStack";
 
 
 
@@ -31,6 +31,7 @@ const [selectedCategory, setSelectedCategory] = useState("miete");
               <li><a href="#community" className="nav-link">Community</a></li>
               <li><a href="#about" className="nav-link">Über uns</a></li>
               <li><a href="#feedback" className="nav-link">Feedback</a></li>
+              <li className="money-indicator"><CoinStack /></li>
             </ul>
             <div className="user-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

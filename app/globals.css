@@ -2217,3 +2217,7 @@ svg circle {
 
 
 }
+.money-indicator {
+    display: flex;
+    align-items: center;
+}
