@@ -1,43 +1,50 @@
 "use client";
-
+ 
 import Link from "next/link";
 import { useState } from "react";
-
+ 
 interface Expense {
   id: number;
   category: string;
   amount: number;
 }
-
+ 
 export default function BudgetErstellenPage() {
   const [income, setIncome] = useState<string>("");
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [newCategory, setNewCategory] = useState<string>("");
   const [newAmount, setNewAmount] = useState<string>("");
-
+ 
   const totalExpenses = expenses.reduce((sum, exp) => sum + exp.amount, 0);
   const totalIncome = parseFloat(income) || 0;
   const available = totalIncome - totalExpenses;
-
+ 
   const addExpense = () => {
-    if (newCategory && newAmount) {
-      setExpenses([
-        ...expenses,
-        {
-          id: Date.now(),
-          category: newCategory,
-          amount: parseFloat(newAmount) || 0,
-        },
-      ]);
-      setNewCategory("");
-      setNewAmount("");
+    if (!newCategory || !newAmount) {
+      alert("Bitte fülle beide Felder aus (Kategorie und Betrag)!");
+      return;
     }
+    const amount = parseFloat(newAmount);
+    if (isNaN(amount) || amount <= 0) {
+      alert("Bitte gib einen gültigen Betrag ein (größer als 0)!");
+      return;
+    }
+    setExpenses([
+      ...expenses,
+      {
+        id: Date.now(),
+        category: newCategory.trim(),
+        amount: amount,
+      },
+    ]);
+    setNewCategory("");
+    setNewAmount("");
   };
-
+ 
   const removeExpense = (id: number) => {
     setExpenses(expenses.filter((exp) => exp.id !== id));
   };
-
+ 
   const saveBudget = () => {
     const budgetData = {
       income: totalIncome,
@@ -47,7 +54,7 @@ export default function BudgetErstellenPage() {
     localStorage.setItem("budget", JSON.stringify(budgetData));
     alert("Budget gespeichert!");
   };
-
+ 
   const loadBudget = () => {
     const saved = localStorage.getItem("budget");
     if (saved) {
@@ -59,7 +66,7 @@ export default function BudgetErstellenPage() {
       alert("Kein gespeichertes Budget gefunden!");
     }
   };
-
+ 
   const resetBudget = () => {
     if (confirm("Möchtest du wirklich alles zurücksetzen?")) {
       setIncome("");
@@ -68,48 +75,52 @@ export default function BudgetErstellenPage() {
       setNewAmount("");
     }
   };
-
+ 
   // Calculate percentages for chart
   const getPercentage = (amount: number) => {
     if (totalIncome === 0) return 0;
     return (amount / totalIncome) * 100;
   };
-
-  // Generate donut chart segments
+ 
+  // Generate donut chart segments (using circle stroke for proper donut)
   const generateChartSegments = () => {
-    if (totalIncome === 0) return null;
-    
-    let currentAngle = 0;
+    if (totalIncome === 0 || expenses.length === 0) return null;
+   
+    const circumference = 2 * Math.PI * 120; // Radius = 120
+    let accumulatedPercentage = 0;
+   
     return expenses.map((exp, index) => {
       const percentage = getPercentage(exp.amount);
-      const angle = (percentage / 100) * 360;
-      const startAngle = currentAngle;
-      const endAngle = currentAngle + angle;
-      currentAngle = endAngle;
-
-      const startRad = (startAngle - 90) * (Math.PI / 180);
-      const endRad = (endAngle - 90) * (Math.PI / 180);
-      const x1 = 150 + 120 * Math.cos(startRad);
-      const y1 = 150 + 120 * Math.sin(startRad);
-      const x2 = 150 + 120 * Math.cos(endRad);
-      const y2 = 150 + 120 * Math.sin(endRad);
-      const largeArc = percentage > 50 ? 1 : 0;
-
+      const dashLength = (percentage / 100) * circumference;
+      const dashOffset = circumference - (accumulatedPercentage / 100) * circumference;
+     
+      accumulatedPercentage += percentage;
+ 
       const colors = ["#2e7d32", "#4caf50", "#66bb6a", "#81c784", "#a5d6a7", "#c8e6c9"];
       const color = colors[index % colors.length];
-
+ 
       return (
-        <path
+        <circle
           key={exp.id}
-          d={`M 150 150 L ${x1} ${y1} A 120 120 0 ${largeArc} 1 ${x2} ${y2} Z`}
-          fill={color}
+          cx="150"
+          cy="150"
+          r="120"
+          fill="none"
+          stroke={color}
+          strokeWidth="40"
+          strokeDasharray={`${dashLength} ${circumference - dashLength}`}
+          strokeDashoffset={-dashOffset}
+          strokeLinecap="round"
+          style={{
+            transition: "all 0.3s ease",
+          }}
         />
       );
     });
   };
-
+ 
   const budgetPercentage = totalIncome > 0 ? ((totalExpenses / totalIncome) * 100).toFixed(0) : 0;
-
+ 
   return (
     <>
       {/* NAVBAR */}
@@ -118,18 +129,18 @@ export default function BudgetErstellenPage() {
           <Link href="/" className="logo">
             <span className="logo-text">FM</span>
           </Link>
-
+ 
           <ul className="nav-menu">
             <li><Link href="/grundlagen" className="nav-link">Grundlagen</Link></li>
             <li><Link href="/community" className="nav-link">Community</Link></li>
             <li><Link href="/ueber-uns" className="nav-link">Über uns</Link></li>
             <li><Link href="/feedback" className="nav-link">Feedback</Link></li>
           </ul>
-
+ 
           <div className="user-icon">👤</div>
         </div>
       </nav>
-
+ 
       {/* MAIN CONTENT */}
       <section style={{ background: "white", padding: "3rem 0", minHeight: "80vh" }}>
         <div className="container">
@@ -137,16 +148,16 @@ export default function BudgetErstellenPage() {
           <p className="page-subtitle">
             Erstelle deine persönliche Budgetplanung und behalte den Überblick über deine Finanzen
           </p>
-
-          <div style={{ 
-            display: "grid", 
-            gridTemplateColumns: "1fr 1fr", 
+ 
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
             gap: "2rem",
             marginTop: "2rem"
           }}>
             {/* Left Panel - Input */}
             <div className="card">
-              <h2 style={{ 
+              <h2 style={{
                 color: "var(--dark-green)",
                 fontSize: "1.5rem",
                 fontWeight: "bold",
@@ -154,7 +165,7 @@ export default function BudgetErstellenPage() {
               }}>
                 Einnahmen
               </h2>
-              <label style={{ 
+              <label style={{
                 display: "block",
                 marginBottom: "0.5rem",
                 color: "#333",
@@ -169,8 +180,8 @@ export default function BudgetErstellenPage() {
                 value={income}
                 onChange={(e) => setIncome(e.target.value)}
               />
-
-              <h2 style={{ 
+ 
+              <h2 style={{
                 color: "var(--dark-green)",
                 fontSize: "1.5rem",
                 fontWeight: "bold",
@@ -179,110 +190,182 @@ export default function BudgetErstellenPage() {
               }}>
                 Ausgaben
               </h2>
-              <div style={{ 
-                display: "grid", 
-                gridTemplateColumns: "1fr 1fr", 
-                gap: "1rem",
-                marginBottom: "1rem"
-              }}>
-                <div>
-                  <label style={{ 
-                    display: "block",
-                    marginBottom: "0.5rem",
-                    color: "#333",
-                    fontWeight: "500"
-                  }}>
-                    Kategorie
-                  </label>
-                  <input
-                    type="text"
-                    className="input-field"
-                    placeholder="z.B. Miete"
-                    value={newCategory}
-                    onChange={(e) => setNewCategory(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label style={{ 
-                    display: "block",
-                    marginBottom: "0.5rem",
-                    color: "#333",
-                    fontWeight: "500"
-                  }}>
-                    Betrag (EUR)
-                  </label>
-                  <input
-                    type="number"
-                    className="input-field"
-                    placeholder="0.00"
-                    value={newAmount}
-                    onChange={(e) => setNewAmount(e.target.value)}
-                  />
-                </div>
-              </div>
-              <button 
-                className="btn-secondary"
-                onClick={addExpense}
-                style={{ width: "100%", marginBottom: "2rem" }}
-              >
-                + Kategorie hinzufügen
-              </button>
-
-              {/* Expense List */}
+ 
+              {/* Expense List - Hinzugefügte Kategorien */}
               {expenses.length > 0 && (
                 <div style={{ marginBottom: "2rem" }}>
+                  <h3 style={{
+                    fontSize: "1rem",
+                    fontWeight: "600",
+                    color: "var(--dark-green)",
+                    marginBottom: "0.75rem"
+                  }}>
+                    Deine Kategorien:
+                  </h3>
                   {expenses.map((exp) => (
                     <div key={exp.id} style={{
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
-                      padding: "0.75rem",
-                      background: "#f5f5f5",
+                      padding: "0.75rem 1rem",
+                      background: "var(--bg-light-green)",
+                      border: "2px solid var(--green-light)",
                       borderRadius: "8px",
                       marginBottom: "0.5rem"
                     }}>
-                      <span>{exp.category}: {exp.amount.toFixed(2)} EUR</span>
-                      <button
-                        onClick={() => removeExpense(exp.id)}
-                        style={{
-                          background: "none",
-                          border: "none",
-                          color: "#d32f2f",
-                          cursor: "pointer",
-                          fontSize: "1.2rem"
-                        }}
-                      >
-                        ×
-                      </button>
+                      <span style={{ fontWeight: "500", color: "var(--dark-green)" }}>
+                        {exp.category}
+                      </span>
+                      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                        <span style={{ fontWeight: "600", color: "var(--dark-green)" }}>
+                          {exp.amount.toFixed(2)} EUR
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => removeExpense(exp.id)}
+                          style={{
+                            background: "#d32f2f",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "4px",
+                            padding: "0.25rem 0.5rem",
+                            cursor: "pointer",
+                            fontSize: "0.9rem",
+                            fontWeight: "600"
+                          }}
+                        >
+                          Entfernen
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
               )}
-
+ 
+              {/* Neue Kategorie hinzufügen */}
+              <div style={{
+                background: "#f9fafb",
+                padding: "1.5rem",
+                borderRadius: "10px",
+                border: "2px dashed var(--green-light)",
+                marginBottom: "1.5rem"
+              }}>
+                <h3 style={{
+                  fontSize: "1rem",
+                  fontWeight: "600",
+                  color: "var(--dark-green)",
+                  marginBottom: "1rem"
+                }}>
+                  {expenses.length === 0 ? "Erste Kategorie hinzufügen:" : "Weitere Kategorie hinzufügen:"}
+                </h3>
+                <div style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "1rem",
+                  marginBottom: "1rem"
+                }}>
+                  <div>
+                    <label style={{
+                      display: "block",
+                      marginBottom: "0.5rem",
+                      color: "#333",
+                      fontWeight: "500"
+                    }}>
+                      Kategorie
+                    </label>
+                    <input
+                      type="text"
+                      className="input-field"
+                      placeholder="z.B. Miete, Essen, Auto..."
+                      value={newCategory}
+                      onChange={(e) => setNewCategory(e.target.value)}
+                      list="category-suggestions"
+                    />
+                    <datalist id="category-suggestions">
+                      <option value="Miete" />
+                      <option value="Essen" />
+                      <option value="Versicherungen" />
+                      <option value="Transport" />
+                      <option value="Freizeit" />
+                      <option value="Sparen" />
+                      <option value="Kleidung" />
+                      <option value="Gesundheit" />
+                      <option value="Bildung" />
+                      <option value="Sonstiges" />
+                      <option value="Auto" />
+                      <option value="Tanken" />
+                      <option value="Restaurant" />
+                      <option value="Handy" />
+                      <option value="Internet" />
+                      <option value="Strom" />
+                      <option value="Gas" />
+                      <option value="Wasser" />
+                      <option value="GEZ" />
+                      <option value="Netflix" />
+                      <option value="Spotify" />
+                      <option value="Fitnessstudio" />
+                      <option value="Hobby" />
+                      <option value="Geschenke" />
+                      <option value="Medikamente" />
+                      <option value="Arzt" />
+                      <option value="Kosmetik" />
+                      <option value="Friseur" />
+                    </datalist>
+                  </div>
+                  <div>
+                    <label style={{
+                      display: "block",
+                      marginBottom: "0.5rem",
+                      color: "#333",
+                      fontWeight: "500"
+                    }}>
+                      Betrag (EUR)
+                    </label>
+                    <input
+                      type="number"
+                      className="input-field"
+                      placeholder="0.00"
+                      value={newAmount}
+                      onChange={(e) => setNewAmount(e.target.value)}
+                      step="0.01"
+                      min="0"
+                    />
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="btn-primary"
+                  onClick={addExpense}
+                  style={{ width: "100%", fontSize: "1rem" }}
+                >
+                  ✓ Kategorie hinzufügen
+                </button>
+              </div>
+ 
               {/* Summary */}
               <div style={{
                 borderTop: "2px solid #ddd",
                 paddingTop: "1rem",
                 marginTop: "2rem"
               }}>
-                <div style={{ 
-                  display: "flex", 
+                <div style={{
+                  display: "flex",
                   justifyContent: "space-between",
                   marginBottom: "0.5rem"
                 }}>
                   <span>Gesamteinnahmen:</span>
                   <span>{totalIncome.toFixed(2)} EUR</span>
                 </div>
-                <div style={{ 
-                  display: "flex", 
+                <div style={{
+                  display: "flex",
                   justifyContent: "space-between",
                   marginBottom: "0.5rem"
                 }}>
                   <span>Gesamtausgaben:</span>
                   <span>{totalExpenses.toFixed(2)} EUR</span>
                 </div>
-                <div style={{ 
-                  display: "flex", 
+                <div style={{
+                  display: "flex",
                   justifyContent: "space-between",
                   marginTop: "1rem",
                   paddingTop: "1rem",
@@ -294,40 +377,55 @@ export default function BudgetErstellenPage() {
                   <span>{available.toFixed(2)} EUR</span>
                 </div>
               </div>
-
+ 
               {/* Action Buttons */}
-              <div style={{ 
-                display: "flex", 
+              <div style={{
+                display: "flex",
                 flexDirection: "column",
                 gap: "1rem",
                 marginTop: "2rem"
               }}>
-                <button className="btn-primary" onClick={saveBudget}>
-                  Budget speichern
+                <button
+                  type="button"
+                  className="btn-primary"
+                  onClick={saveBudget}
+                  style={{ fontSize: "1rem" }}
+                >
+                  💾 Budget speichern
                 </button>
-                <button className="btn-secondary" onClick={loadBudget}>
-                  Gespeichertes Budget laden
+                <button
+                  type="button"
+                  className="btn-secondary"
+                  onClick={loadBudget}
+                  style={{ fontSize: "1rem" }}
+                >
+                  📂 Gespeichertes Budget laden
                 </button>
-                <button 
+                <button
+                  type="button"
                   onClick={resetBudget}
                   style={{
-                    background: "white",
-                    color: "#666",
-                    border: "2px solid #ddd",
+                    background: "#fff3cd",
+                    color: "#856404",
+                    border: "2px solid #ffc107",
                     padding: "0.75rem 1.5rem",
                     borderRadius: "8px",
                     cursor: "pointer",
-                    fontWeight: "600"
+                    fontWeight: "600",
+                    fontSize: "1rem",
+                    transition: "all 0.3s ease"
                   }}
+                  onMouseOver={(e) => e.currentTarget.style.background = "#ffc107"}
+                  onMouseOut={(e) => e.currentTarget.style.background = "#fff3cd"}
                 >
-                  Zurücksetzen
+                  🔄 Alles zurücksetzen
                 </button>
               </div>
             </div>
-
+ 
             {/* Right Panel - Budget Overview */}
             <div className="card">
-              <h2 style={{ 
+              <h2 style={{
                 color: "var(--dark-green)",
                 fontSize: "1.5rem",
                 fontWeight: "bold",
@@ -357,14 +455,14 @@ export default function BudgetErstellenPage() {
                     zIndex: 2,
                     pointerEvents: "none"
                   }}>
-                    <div style={{ 
+                    <div style={{
                       color: "var(--dark-green)",
                       fontWeight: "bold",
                       fontSize: "1.5rem"
                     }}>
                       Budget
                     </div>
-                    <div style={{ 
+                    <div style={{
                       color: "#666",
                       fontSize: "1.2rem"
                     }}>
@@ -373,6 +471,58 @@ export default function BudgetErstellenPage() {
                   </div>
                 </div>
               </div>
+ 
+              {/* Legend */}
+              {expenses.length > 0 && (
+                <div style={{ marginTop: "2rem" }}>
+                  <h3 style={{
+                    fontSize: "1.2rem",
+                    fontWeight: "600",
+                    color: "var(--dark-green)",
+                    marginBottom: "1rem"
+                  }}>
+                    Kategorien
+                  </h3>
+                  {expenses.map((exp, index) => {
+                    const colors = ["#2e7d32", "#4caf50", "#66bb6a", "#81c784", "#a5d6a7", "#c8e6c9"];
+                    const color = colors[index % colors.length];
+                    const percentage = getPercentage(exp.amount);
+                   
+                    return (
+                      <div key={exp.id} style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.75rem",
+                        padding: "0.75rem",
+                        borderRadius: "8px",
+                        marginBottom: "0.5rem",
+                        background: "#f5f5f5"
+                      }}>
+                        <div style={{
+                          width: "20px",
+                          height: "20px",
+                          borderRadius: "4px",
+                          backgroundColor: color,
+                          flexShrink: 0
+                        }} />
+                        <span style={{ flex: 1, fontWeight: 500 }}>
+                          {exp.category}
+                        </span>
+                        <span style={{ fontWeight: 700, color: "var(--dark-green)" }}>
+                          {exp.amount.toFixed(2)} EUR
+                        </span>
+                        <span style={{
+                          fontWeight: 600,
+                          color: "var(--green-medium)",
+                          fontSize: "0.9rem"
+                        }}>
+                          ({percentage.toFixed(1)}%)
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -380,4 +530,5 @@ export default function BudgetErstellenPage() {
     </>
   );
 }
-
+ 
+ 

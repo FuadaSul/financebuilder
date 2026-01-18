@@ -1,4 +1,6 @@
-"use client";import Link from "next/link";
+"use client";
+
+import Link from "next/link";
 
 
 import React, { useState } from "react";
@@ -6,6 +8,12 @@ import BudgetLiveCircle from "@/app/components/BudgetLiveCircle";
 import BudgetExampleCircle from "@/app/components/BudgetExampleCircle";
 import CoinStack from "@/app/components/CoinStack";
 import NotesSection from "./components/NotesSection";
+
+type ExpenseRow = {
+  id: number;
+  category: string;
+  amount: number;
+};
 
 
 type FeedbackEntry = {
@@ -18,13 +26,7 @@ type FeedbackEntry = {
   date: string;
 };
 
-type BudgetState = {
-  miete: number;
-  essen: number;
-  versicherungen: number;
-  transport: number;
-  sparen: number;
-};
+
 // =====================
 // "Geld verstehen" Buch-Seiten
 // =====================
@@ -59,6 +61,94 @@ const geldPages = [
 ];
 
 export default function HomePage() {
+
+  // =====================
+  // Budget (Startseite)
+  // =====================
+  const [income, setIncome] = useState<number>(0);
+
+  const [rows, setRows] = useState<ExpenseRow[]>([
+    { id: Date.now(), category: "", amount: 0 },
+  ]);
+
+  const addRow = () => {
+    setRows((prev) => [
+      ...prev,
+      { id: Date.now() + Math.floor(Math.random() * 1000), category: "", amount: 0 },
+    ]);
+  };
+
+  const updateRow = (id: number, patch: Partial<ExpenseRow>) => {
+    setRows((prev) =>
+      prev.map((r) => (r.id === id ? { ...r, ...patch } : r))
+    );
+  };
+
+  const removeRow = (id: number) => {
+    setRows((prev) => {
+      const next = prev.filter((r) => r.id !== id);
+      return next.length > 0
+        ? next
+        : [{ id: Date.now(), category: "", amount: 0 }];
+    });
+  };
+
+  const totalExpenses = rows.reduce(
+    (sum, r) => sum + (Number(r.amount) || 0),
+    0
+  );
+
+  const available = income - totalExpenses;
+
+  const circleCategories = rows
+    .filter(
+      (r) => r.category.trim().length > 0 && (Number(r.amount) || 0) > 0
+    )
+    .map((r, idx) => {
+      const colors = [
+        "#2d5016",
+        "#4f7f2f",
+        "#7fb069",
+        "#a8e08e",
+        "#d4f5c9",
+        "#2e7d32",
+        "#66bb6a",
+      ];
+      return {
+        label: r.category.trim(),
+        value: Number(r.amount) || 0,
+        color: colors[idx % colors.length],
+      };
+    });
+
+  const saveBudget = () => {
+    const data = { income, rows, date: new Date().toISOString() };
+    localStorage.setItem("budget_home", JSON.stringify(data));
+    alert("Budget gespeichert!");
+  };
+
+  const loadBudget = () => {
+    const saved = localStorage.getItem("budget_home");
+    if (!saved) return alert("Kein gespeichertes Budget gefunden!");
+    const data = JSON.parse(saved);
+    setIncome(Number(data.income) || 0);
+    setRows(
+      Array.isArray(data.rows) && data.rows.length
+        ? data.rows
+        : [{ id: Date.now(), category: "", amount: 0 }]
+    );
+    alert("Budget geladen!");
+  };
+
+  const resetBudget = () => {
+    if (confirm("Möchtest du wirklich alles zurücksetzen?")) {
+      setIncome(0);
+      setRows([{ id: Date.now(), category: "", amount: 0 }]);
+    }
+  };
+
+  
+
   // Feedback-Formular 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -71,17 +161,7 @@ export default function HomePage() {
   const [feedbackStatus, setFeedbackStatus] =
     useState<"idle" | "success" | "error">("idle");
 
-  // Budget-State (für Mein Budget erstellen + Kreisdiagramm)
-  const [budget, setBudget] = useState<BudgetState>({
-    miete: 0,
-    essen: 0,
-    versicherungen: 0,
-    transport: 0,
-    sparen: 0,
-  });
 
-  const [selectedCategory, setSelectedCategory] =
-    useState<keyof BudgetState>("miete");
 
   const handleFeedbackSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -144,19 +224,6 @@ export default function HomePage() {
               </li>
               <li className="money-indicator"><CoinStack /></li>
             </ul>
-            <div className="user-icon">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-            </div>
             <button
               className="hamburger"
               id="hamburger"
@@ -348,167 +415,138 @@ export default function HomePage() {
         {/* BUDGET ERSTELLEN      */}
         {/* ===================== */}
         <section id="budget-erstellen" className="budget-erstellen-section">
-          <div className="container">
-            <h2 className="budget-erstellen-title">Mein Budget erstellen</h2>
-            <p className="budget-erstellen-subtitle">
-              Erstelle deine persönliche Budgetplanung und behalte den Überblick
-              über deine Finanzen
-            </p>
+  <div className="container">
+    <h2 className="budget-erstellen-title">Mein Budget erstellen</h2>
+    <p className="budget-erstellen-subtitle">
+      Erstelle deine persönliche Budgetplanung und behalte den Überblick über deine Finanzen
+    </p>
 
-            <div className="budget-form-wrapper">
-              <div className="budget-form-container">
-                <h3>Einnahmen</h3>
-                <div className="form-group">
-                  <label htmlFor="einnahmen">Monatliche Einnahmen (EUR)</label>
-                  <input
-                    type="number"
-                    id="einnahmen"
-                    placeholder="z.B. 3000"
-                    min="0"
-                    step="0.01"
-                  />
-                </div>
+    <div className="budget-form-wrapper">
+      <div className="budget-form-container">
+        <h3>Einnahmen</h3>
+        <div className="form-group">
+          <label htmlFor="einnahmen">Monatliche Einnahmen (EUR)</label>
+          <input
+            type="number"
+            id="einnahmen"
+            placeholder="z.B. 3000"
+            min="0"
+            step="0.01"
+            value={income}
+            onChange={(e) => setIncome(Number(e.target.value) || 0)}
+          />
+        </div>
 
-                <h3>Ausgaben</h3>
-                <div className="expenses-container" id="expensesContainer">
-                  <div className="expense-item">
-                    <label>Kategorie</label>
-                    <input
-                      type="text"
-                      className="expense-category"
-                      placeholder="z.B. Miete"
-                      list="categories"
-                      onChange={(e) =>
-                        setSelectedCategory(
-                          e.target.value.toLowerCase() as keyof BudgetState
-                        )
-                      }
-                    />
+        <h3>Ausgaben</h3>
 
-                    <label>Betrag (EUR)</label>
-                    <input
-                      type="number"
-                      className="expense-amount"
-                      placeholder="0.00"
-                      onChange={(e) =>
-                        setBudget({
-                          ...budget,
-                          [selectedCategory]: Number(e.target.value),
-                        })
-                      }
-                    />
+        <div className="expenses-container">
+          {rows.map((row) => (
+            <div className="expense-item" key={row.id}>
+              <label>Kategorie</label>
+              <input
+                type="text"
+                className="expense-category"
+                placeholder="z.B. Miete"
+                list="categories"
+                value={row.category}
+                onChange={(e) => updateRow(row.id, { category: e.target.value })}
+              />
 
-                    <button
-                      type="button"
-                      className="remove-expense-btn"
-                      style={{ display: "none" }}
-                    >
-                      ×
-                    </button>
-                  </div>
-                </div>
+              <label>Betrag (EUR)</label>
+              <input
+                type="number"
+                className="expense-amount"
+                placeholder="0.00"
+                min="0"
+                step="0.01"
+                value={row.amount}
+                onChange={(e) => updateRow(row.id, { amount: Number(e.target.value) || 0 })}
+              />
 
-                <datalist id="categories">
-                  <option value="Miete" />
-                  <option value="Essen" />
-                  <option value="Versicherungen" />
-                  <option value="Transport" />
-                  <option value="Sparen" />
-                </datalist>
-
-                <button
-                  type="button"
-                  className="add-expense-btn"
-                  id="addExpenseBtn"
-                >
-                  + Kategorie hinzufügen
-                </button>
-
-                <div className="budget-summary">
-                  <div className="summary-item">
-                    <span>Gesamteinnahmen:</span>
-                    <span id="totalIncome">0.00 EUR</span>
-                  </div>
-                  <div className="summary-item">
-                    <span>Gesamtausgaben:</span>
-                    <span id="totalExpenses">0.00 EUR</span>
-                  </div>
-                  <div className="summary-item summary-balance">
-                    <span>Verfügbar:</span>
-                    <span id="balance">0.00 EUR</span>
-                  </div>
-                </div>
-
-                <div className="form-actions">
-                  <button
-                    type="button"
-                    className="save-budget-btn"
-                    id="saveBudgetBtn"
-                  >
-                    Budget speichern
-                  </button>
-                  <button
-                    type="button"
-                    className="load-budget-btn"
-                    id="loadBudgetBtn"
-                  >
-                    Gespeichertes Budget laden
-                  </button>
-                  <button
-                    type="button"
-                    className="clear-budget-btn"
-                    id="clearBudgetBtn"
-                  >
-                    Zurücksetzen
-                  </button>
-                </div>
-              </div>
-
-              <div className="budget-visualization">
-                <h3>Budget-Übersicht</h3>
-                <div className="pie-chart-container-custom">
-                  <BudgetLiveCircle
-                    categories={[
-                      { label: "Miete", value: budget.miete, color: "#2d5016" },
-                      { label: "Essen", value: budget.essen, color: "#4f7f2f" },
-                      {
-                        label: "Versicherungen",
-                        value: budget.versicherungen,
-                        color: "#7fb069",
-                      },
-                      {
-                        label: "Transport",
-                        value: budget.transport,
-                        color: "#a8e08e",
-                      },
-                      {
-                        label: "Sparen",
-                        value: budget.sparen,
-                        color: "#d4f5c9",
-                      },
-                    ]}
-                  />
-
-                  <div
-                    className="pie-legend-custom"
-                    id="pieLegendCustom"
-                  ></div>
-                </div>
-                <div
-                  className="budget-warning"
-                  id="budgetWarning"
-                  style={{ display: "none" }}
-                ></div>
-              </div>
+              <button
+                type="button"
+                className="remove-expense-btn"
+                onClick={() => removeRow(row.id)}
+                style={{ display: rows.length === 1 ? "none" : "inline-flex" }}
+              >
+                ×
+              </button>
             </div>
+          ))}
+        </div>
 
-            <div className="back-button-container">
-              <a href="#budgetplanung" className="back-button">
-                ← Zurück zu Budgetplanung
-              </a>
-            </div>
+        <datalist id="categories">
+          <option value="Miete" />
+          <option value="Essen" />
+          <option value="Versicherungen" />
+          <option value="Transport" />
+          <option value="Sparen" />
+          <option value="Freizeit" />
+          <option value="Gesundheit" />
+          <option value="Sonstiges" />
+        </datalist>
+
+        <button
+          type="button"
+          className="add-expense-btn"
+          onClick={addRow}
+        >
+          + Kategorie hinzufügen
+        </button>
+
+        <div className="budget-summary">
+          <div className="summary-item">
+            <span>Gesamteinnahmen:</span>
+            <span>{income.toFixed(2)} EUR</span>
           </div>
-        </section>
+          <div className="summary-item">
+            <span>Gesamtausgaben:</span>
+            <span>{totalExpenses.toFixed(2)} EUR</span>
+          </div>
+          <div className="summary-item summary-balance">
+            <span>Verfügbar:</span>
+            <span>{available.toFixed(2)} EUR</span>
+          </div>
+        </div>
+
+        <div className="form-actions">
+          <button type="button" className="save-budget-btn" onClick={saveBudget}>
+            Budget speichern
+          </button>
+
+          <button type="button" className="load-budget-btn" onClick={loadBudget}>
+            Gespeichertes Budget laden
+          </button>
+
+          <button type="button" className="clear-budget-btn" onClick={resetBudget}>
+            Zurücksetzen
+          </button>
+        </div>
+      </div>
+
+      <div className="budget-visualization">
+        <h3>Budget-Übersicht</h3>
+
+        <div className="pie-chart-container-custom">
+          <BudgetLiveCircle categories={circleCategories} />
+        </div>
+
+        {circleCategories.length === 0 && (
+          <div style={{ marginTop: "12px", opacity: 0.7 }}>
+            Tipp: Füge Kategorien + Beträge hinzu, dann erscheint der Kreis.
+          </div>
+        )}
+      </div>
+    </div>
+
+    <div className="back-button-container">
+      <a href="#budgetplanung" className="back-button">
+        ← Zurück zu Budgetplanung
+      </a>
+    </div>
+  </div>
+</section>
+
 
         {/* ===================== */}
         {/* SCHULDEN VERMEIDEN    */}
