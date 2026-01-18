@@ -142,6 +142,7 @@ export default function HomePage() {
                   Feedback
                 </a>
               </li>
+              <li className="money-indicator"><CoinStack /></li>
             </ul>
             <div className="user-icon">
               <svg
@@ -180,8 +181,7 @@ export default function HomePage() {
                 </h1>
 
                 <button className="cta-button" id="ctaButton" onClick={() => {document.getElementById("grundlagen")?.scrollIntoView({
-                  behavior: "smooth"
-                });
+                  behavior: "smooth"});
                 }}>
                   Jetzt loslegen
                 </button>
