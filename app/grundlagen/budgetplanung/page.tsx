@@ -55,8 +55,13 @@ export default function BudgetplanungPage() {
             Wie man eine Budgetplanung macht
           </h2>
 
-          <div className="budget-planung-grid">
-            {/* Linke Spalte: Diagramm + Legende */}
+          <div style={{ 
+            display: "grid", 
+            gridTemplateColumns: "1fr 2fr", 
+            gap: "3rem",
+            marginTop: "2rem"
+          }}>
+            {/* Left Column - Chart and Categories */}
             <div>
               {/* Donut Chart */}
               <div className="donut-chart-container">
@@ -117,7 +122,7 @@ export default function BudgetplanungPage() {
               </div>
 
               {/* Categories List */}
-              <ul className="budget-categories">
+              <ul className="budget-categories" style={{ marginTop: "2rem" }}>
                 {categories.map((cat) => (
                   <li
                     key={cat.name}
