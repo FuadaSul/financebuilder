@@ -222,100 +222,132 @@ h3 {
 
 /* Grundlagen Section */
 .grundlagen {
-  background-color: var(--bg-white);
-  padding: 80px 0;
+    background-color: var(--bg-white);
+    padding: 80px 0;
 }
 
-/* Überschrift + Unterzeile */
 .section-title {
-  font-size: 2.4rem;
-  text-align: center;
-  margin-bottom: 0.75rem;
-  color: var(--text-color);
-  font-weight: 700;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    font-weight: bold;
 }
 
 .section-subtitle {
-  text-align: center;
-  font-size: 1.05rem;
-  color: var(--text-light);
-  margin-bottom: 3rem;
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 3rem;
 }
 
-/* Grid der drei Karten */
 .cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2.2rem;
-  align-items: flex-start;         /* <– NICHT mehr „stretch“ */.cards-grid {
-  align-items: stretch;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
 }
 
+.cards-grid-with-image {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
 }
 
-/* einzelne Karte */
+.geld-verstehen-wrapper,
+.budgetplanung-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.geld-verstehen-wrapper .finance-card,
+.budgetplanung-wrapper .finance-card {
+    flex: 1;
+}
+
+.geld-verstehen-side-image,
+.budgetplanung-side-image {
+    flex-shrink: 0;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.side-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
 .finance-card {
-  background-color: var(--bg-white);
-  border-radius: 18px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  /* KEIN height: 100% mehr */
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    background-color: var(--bg-white);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Hover-Effekt */
 .finance-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Bildbereich */
 .card-image {
-  background-color: #fff9f2;
-  padding: 1.8rem 1.8rem 0;
+    background-color: var(--bg-white);
+    padding: 1rem;
+}
+
+.card-illustration {
+    background-color: #f9fafb;
+    border-radius: 8px;
+    width: 100%;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    border: 2px dashed var(--text-light);
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 1rem;
 }
 
 .card-image-img {
-  width: 100%;
-  height: 230px;
-  object-fit: contain;
-  display: block;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
 }
 
-/* Textbereich */
 .card-footer {
-  background-color: var(--bg-light-green);
-  padding: 1.7rem 1.8rem 2rem;
-  height: 210px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+    background-color: var(--green-light);
+    padding: 1.5rem;
 }
-
-
 
 .card-footer h3 {
-  font-size: 1.45rem;
-  color: var(--green-dark);
-  margin-bottom: 0.7rem;
-  font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--green-dark);
+    margin-bottom: 0.75rem;
+    font-weight: 600;
 }
 
 .card-footer p {
-  color: var(--text-color);
-  font-size: 1.02rem;
-  line-height: 1.7;
-  margin: 0;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
-/* Links wie Karten */
 .finance-card-link {
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
 }
 
 /* Geld verstehen Seite */
@@ -436,6 +468,9 @@ h3 {
 
 
 /* Schulden vermeiden Seite */
+/* ===================== */
+/* SCHULDEN VERMEIDEN    */
+/* ===================== */
 
 .schulden-vermeiden-section {
   background-color: var(--bg-white);
@@ -476,7 +511,7 @@ h3 {
 
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;   /* Emoji + Überschrift zentriert */
   text-align: center;
   gap: 0.8rem;
 }
@@ -497,7 +532,7 @@ h3 {
 
 /* Text */
 .infographic-card p {
-  text-align: left; 
+  text-align: left;       /* Text bleibt gut lesbar links */
   max-width: 270px;
   line-height: 1.7;
   color: var(--text-color);
@@ -511,7 +546,9 @@ h3 {
   background-color: var(--green-light);
 }
 
-/* Responsive Grid */
+/* ===================== */
+/* RESPONSIVE            */
+/* ===================== */
 
 @media (max-width: 1024px) {
   .infographics-grid {
@@ -564,7 +601,7 @@ h3 {
     transform: translateY(0);
 }
 
-/* Über uns Seite */
+/* Über uns / Unser Team Seite */
 .about-section {
     background-color: var(--bg-white);
     padding: 100px 0;
@@ -958,13 +995,7 @@ h3 {
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
-        
     }
-    @media (max-width: 968px) {
-  .card-footer {
-    height: auto;
-  }
-}
 
     .nav-menu {
         position: fixed;
