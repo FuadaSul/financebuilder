@@ -20,25 +20,18 @@ export default function BudgetErstellenPage() {
   const available = totalIncome - totalExpenses;
 
   const addExpense = () => {
-    if (!newCategory || !newAmount) {
-      alert("Bitte fülle beide Felder aus (Kategorie und Betrag)!");
-      return;
+    if (newCategory && newAmount) {
+      setExpenses([
+        ...expenses,
+        {
+          id: Date.now(),
+          category: newCategory,
+          amount: parseFloat(newAmount) || 0,
+        },
+      ]);
+      setNewCategory("");
+      setNewAmount("");
     }
-    const amount = parseFloat(newAmount);
-    if (isNaN(amount) || amount <= 0) {
-      alert("Bitte gib einen gültigen Betrag ein (größer als 0)!");
-      return;
-    }
-    setExpenses([
-      ...expenses,
-      {
-        id: Date.now(),
-        category: newCategory.trim(),
-        amount: amount,
-      },
-    ]);
-    setNewCategory("");
-    setNewAmount("");
   };
 
   const removeExpense = (id: number) => {
@@ -82,38 +75,34 @@ export default function BudgetErstellenPage() {
     return (amount / totalIncome) * 100;
   };
 
-  // Generate donut chart segments (using circle stroke for proper donut)
+  // Generate donut chart segments
   const generateChartSegments = () => {
-    if (totalIncome === 0 || expenses.length === 0) return null;
+    if (totalIncome === 0) return null;
     
-    const circumference = 2 * Math.PI * 120; // Radius = 120
-    let accumulatedPercentage = 0;
-    
+    let currentAngle = 0;
     return expenses.map((exp, index) => {
       const percentage = getPercentage(exp.amount);
-      const dashLength = (percentage / 100) * circumference;
-      const dashOffset = circumference - (accumulatedPercentage / 100) * circumference;
-      
-      accumulatedPercentage += percentage;
+      const angle = (percentage / 100) * 360;
+      const startAngle = currentAngle;
+      const endAngle = currentAngle + angle;
+      currentAngle = endAngle;
+
+      const startRad = (startAngle - 90) * (Math.PI / 180);
+      const endRad = (endAngle - 90) * (Math.PI / 180);
+      const x1 = 150 + 120 * Math.cos(startRad);
+      const y1 = 150 + 120 * Math.sin(startRad);
+      const x2 = 150 + 120 * Math.cos(endRad);
+      const y2 = 150 + 120 * Math.sin(endRad);
+      const largeArc = percentage > 50 ? 1 : 0;
 
       const colors = ["#2e7d32", "#4caf50", "#66bb6a", "#81c784", "#a5d6a7", "#c8e6c9"];
       const color = colors[index % colors.length];
 
       return (
-        <circle
+        <path
           key={exp.id}
-          cx="150"
-          cy="150"
-          r="120"
-          fill="none"
-          stroke={color}
-          strokeWidth="40"
-          strokeDasharray={`${dashLength} ${circumference - dashLength}`}
-          strokeDashoffset={-dashOffset}
-          strokeLinecap="round"
-          style={{
-            transition: "all 0.3s ease",
-          }}
+          d={`M 150 150 L ${x1} ${y1} A 120 120 0 ${largeArc} 1 ${x2} ${y2} Z`}
+          fill={color}
         />
       );
     });
@@ -211,20 +200,7 @@ export default function BudgetErstellenPage() {
                     placeholder="z.B. Miete"
                     value={newCategory}
                     onChange={(e) => setNewCategory(e.target.value)}
-                    list="category-suggestions"
                   />
-                  <datalist id="category-suggestions">
-                    <option value="Miete" />
-                    <option value="Essen" />
-                    <option value="Versicherungen" />
-                    <option value="Transport" />
-                    <option value="Freizeit" />
-                    <option value="Sparen" />
-                    <option value="Kleidung" />
-                    <option value="Gesundheit" />
-                    <option value="Bildung" />
-                    <option value="Sonstiges" />
-                  </datalist>
                 </div>
                 <div>
                   <label style={{ 
@@ -245,7 +221,6 @@ export default function BudgetErstellenPage() {
                 </div>
               </div>
               <button 
-                type="button"
                 className="btn-secondary"
                 onClick={addExpense}
                 style={{ width: "100%", marginBottom: "2rem" }}
@@ -268,7 +243,6 @@ export default function BudgetErstellenPage() {
                     }}>
                       <span>{exp.category}: {exp.amount.toFixed(2)} EUR</span>
                       <button
-                        type="button"
                         onClick={() => removeExpense(exp.id)}
                         style={{
                           background: "none",
@@ -328,14 +302,13 @@ export default function BudgetErstellenPage() {
                 gap: "1rem",
                 marginTop: "2rem"
               }}>
-                <button type="button" className="btn-primary" onClick={saveBudget}>
+                <button className="btn-primary" onClick={saveBudget}>
                   Budget speichern
                 </button>
-                <button type="button" className="btn-secondary" onClick={loadBudget}>
+                <button className="btn-secondary" onClick={loadBudget}>
                   Gespeichertes Budget laden
                 </button>
                 <button 
-                  type="button"
                   onClick={resetBudget}
                   style={{
                     background: "white",
@@ -400,42 +373,6 @@ export default function BudgetErstellenPage() {
                   </div>
                 </div>
               </div>
-
-              {/* Legend */}
-              {expenses.length > 0 && (
-                <div style={{ marginTop: "2rem" }}>
-                  {expenses.map((exp, index) => {
-                    const colors = ["#2e7d32", "#4caf50", "#66bb6a", "#81c784", "#a5d6a7", "#c8e6c9"];
-                    const color = colors[index % colors.length];
-                    const percentage = getPercentage(exp.amount);
-                    
-                    return (
-                      <div key={exp.id} style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "0.75rem",
-                        padding: "0.5rem",
-                        borderRadius: "5px",
-                        marginBottom: "0.5rem"
-                      }}>
-                        <div style={{
-                          width: "20px",
-                          height: "20px",
-                          borderRadius: "4px",
-                          backgroundColor: color,
-                          flexShrink: 0
-                        }} />
-                        <span style={{ flex: 1, fontWeight: 500 }}>
-                          {exp.category}
-                        </span>
-                        <span style={{ fontWeight: 600, color: "var(--dark-green)" }}>
-                          {percentage.toFixed(1)}%
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
             </div>
           </div>
         </div>
