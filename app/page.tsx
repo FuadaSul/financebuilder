@@ -965,6 +965,11 @@ export default function HomePage() {
           <div className="footer-content">
             <div className="footer-logo">
               <span className="logo-text">FM</span>
+              <footer id="community" className="footer">
+              <li>
+              <a href="#community" className="nav-link">Community</a>
+              </li>
+              </footer>
             </div>
 
             <div className="footer-social">
