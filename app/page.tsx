@@ -1,4 +1,5 @@
-"use client";
+"use client";import Link from "next/link";
+
 
 import React, { useState } from "react";
 import BudgetLiveCircle from "@/app/components/BudgetLiveCircle";
@@ -7,7 +8,55 @@ import CoinStack from "@/app/components/CoinStack";
 import NotesSection from "./components/NotesSection";
 
 
+type FeedbackEntry = {
+  id: number;
+  name: string;
+  email: string;
+  rating: number;
+  category: string;
+  message: string;
+  date: string;
+};
 
+type BudgetState = {
+  miete: number;
+  essen: number;
+  versicherungen: number;
+  transport: number;
+  sparen: number;
+};
+// =====================
+// "Geld verstehen" Buch-Seiten
+// =====================
+const geldPages = [
+  {
+    id: 1,
+    title: "Geld verstehen – Grundlagen",
+    image: "/geld-verstehen-seite.png",
+    paragraphs: [
+      "Viele Menschen stehen vor der Frage: Was bedeutet es eigentlich, Geld zu verstehen? Es geht darum, die Grundlagen unseres Finanzsystems zu begreifen und fundierte Entscheidungen treffen zu können.",
+      "Geld verstehen bedeutet, den Unterschied zwischen Einnahmen und Ausgaben zu kennen, zwischen Bedürfnissen und Wünschen zu unterscheiden und zu erkennen, warum oft die Übersicht fehlt. Es ist der erste Schritt zu finanzieller Unabhängigkeit."
+    ]
+  },
+  {
+    id: 2,
+    title: "Dein Umgang mit Geld",
+    image: "/geld-verstehen-seite.png",
+    paragraphs: [
+      "Du bist nicht allein mit deinen Fragen – und du kannst lernen, wie Geld funktioniert. Mit dem richtigen Wissen kannst du deine finanzielle Situation verbessern und langfristig mehr Kontrolle über deine Finanzen gewinnen.",
+      "Ein bewusster Umgang mit Geld hilft dir, Stress zu reduzieren und klarere Entscheidungen zu treffen. Je besser du deine Zahlen kennst, desto sicherer wirst du dich fühlen."
+    ]
+  },
+  {
+    id: 3,
+    title: "Der erste Schritt",
+    image: "/geld-verstehen-seite.png",
+    paragraphs: [
+      "Beginne damit, deine eigenen Ausgaben zu analysieren: Verstehe, wofür du dein Geld ausgibst, und lerne, Prioritäten zu setzen.",
+      "Nur wer versteht, wie Geld funktioniert, kann es auch erfolgreich verwalten. Dieses Kapitel ist dein Startpunkt – die nächsten Seiten deiner Finanzreise schreibst du selbst."
+    ]
+  }
+];
 
 export default function HomePage() {
   // Feedback-Formular 
@@ -73,10 +122,26 @@ export default function HomePage() {
               <span className="logo-text">FM</span>
             </div>
             <ul className="nav-menu" id="navMenu">
-              <li><a href="#grundlagen" className="nav-link">Grundlagen</a></li>
-              <li><a href="#community" className="nav-link">Community</a></li>
-              <li><a href="#about" className="nav-link">Über uns</a></li>
-              <li><a href="#feedback" className="nav-link">Feedback</a></li>
+              <li>
+                <a href="#grundlagen" className="nav-link">
+                  Grundlagen
+                </a>
+              </li>
+              <li>
+                <a href="#community" className="nav-link">
+                  Community
+                </a>
+              </li>
+              <li>
+                <a href="#about" className="nav-link">
+                  Über uns
+                </a>
+              </li>
+              <li>
+                <a href="#feedback" className="nav-link">
+                  Feedback
+                </a>
+              </li>
             </ul>
             <div className="user-icon">
               <svg
@@ -892,7 +957,6 @@ export default function HomePage() {
           </div>
         </section>
       </main>
-
       {/* ===================== */}
       {/* FOOTER                */}
       {/* ===================== */}
@@ -902,6 +966,7 @@ export default function HomePage() {
             <div className="footer-logo">
               <span className="logo-text">FM</span>
             </div>
+
             <div className="footer-social">
               <h3>Folge uns</h3>
               <div className="footer-social-links">
@@ -1003,10 +1068,45 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="footer-bottom">
-            <p>&copy; 2024 Finanzielle Freiheit. Alle Rechte vorbehalten.</p>
+          {/* unterer Bereich mit Text + Links */}
+          <div
+            style={{
+              marginTop: "1rem",
+              paddingTop: "0.75rem",
+              borderTop: "1px solid rgba(255,255,255,0.2)",
+              color: "white",
+              textAlign: "center",
+              fontSize: "0.875rem",
+            }}
+          >
+            <p>© 2024 Finanzielle Freiheit. Alle Rechte vorbehalten.</p>
+            <p style={{ marginTop: "0.5rem" }}>
+              <a
+                href="/legal"
+                style={{
+                  textDecoration: "underline",
+                  marginRight: "1rem",
+                  color: "white",
+                }}
+              >
+                Impressum
+              </a>
+              <a
+                href="/legal"
+                style={{
+                  textDecoration: "underline",
+                  color: "white",
+                }}
+              >
+                Datenschutz
+              </a>
+            </p>
           </div>
         </div>
+        <div style={{ marginTop: "12px", fontSize: "14px", textAlign: "center" }}>
+  
+</div>
+
       </footer>
     </>
   );
