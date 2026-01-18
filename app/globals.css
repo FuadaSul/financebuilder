@@ -2221,3 +2221,44 @@ svg circle {
     display: flex;
     align-items: center;
 }
+.notes-section {
+    padding: 0,5rem;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .note-card {
+    background-color: #fff9e6;
+    border: 1px solid #f0d67f;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 600px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+  }
+  
+  .note-text {
+    font-size: 6rem; 
+    font-weight:500;
+    line-height: 1.7;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+  }
+  
+  .next-btn, .prev-btn {
+    background-color: #f0c040;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  .next-btn:hover, .prev-btn:hover {
+    background-color: #e0a800;
+  }

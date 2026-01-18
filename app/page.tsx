@@ -3,6 +3,7 @@ import { useState } from "react";
 import BudgetLiveCircle from "@/app/components/BudgetLiveCircle";
 import BudgetExampleCircle from "@/app/components/BudgetExampleCircle";
 import CoinStack from "@/app/components/CoinStack";
+import NotesSection from "./components/NotesSection";
 
 
 
@@ -109,26 +110,7 @@ const [selectedCategory, setSelectedCategory] = useState("miete");
               <div className="geld-text-content">
                 <h2>Geld verstehen</h2>
                 <div className="geld-text-flow">
-                  <p>
-                    Viele Menschen stehen vor der Frage: Was bedeutet es eigentlich, Geld zu verstehen?
-                    Es geht darum, die Grundlagen unseres Finanzsystems zu begreifen und fundierte
-                    Entscheidungen treffen zu können.
-                  </p>
-                  <p>
-                    Geld verstehen bedeutet, den Unterschied zwischen Einnahmen und Ausgaben zu kennen,
-                    zwischen Bedürfnissen und Wünschen zu unterscheiden, und zu verstehen, warum oft
-                    die Übersicht fehlt. Es ist der erste Schritt zu finanzieller Unabhängigkeit.
-                  </p>
-                  <p>
-                    Du bist nicht allein mit deinen Fragen - und du kannst lernen, wie Geld funktioniert.
-                    Mit dem richtigen Wissen kannst du deine finanzielle Situation verbessern und langfristig
-                    mehr Kontrolle über deine Finanzen gewinnen.
-                  </p>
-                  <p>
-                    Beginne damit, deine eigenen Ausgaben zu analysieren, verstehe, wofür du dein Geld
-                    ausgibst, und lerne, Prioritäten zu setzen. Nur wer versteht, wie Geld funktioniert,
-                    kann es auch erfolgreich verwalten.
-                  </p>
+                <NotesSection />
                 </div>
               </div>
             </div>

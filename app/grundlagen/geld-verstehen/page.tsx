@@ -56,36 +56,6 @@ export default function GeldVerstehenPage() {
                 style={{ width: "100%", height: "auto" }}
               />
             </div>
-
-            {/* Text Content */}
-            <div>
-              <p className="text-content">
-                Warum ist es wichtig, Geld zu verstehen? Viele Menschen haben Fragen zu ihren Finanzen,
-                wissen aber nicht, wo sie anfangen sollen. Das Verstehen der Grundlagen unseres Finanzsystems
-                ist der erste Schritt, um fundierte Entscheidungen zu treffen und deine finanzielle Zukunft
-                selbst in die Hand zu nehmen.
-              </p>
-
-              <p className="text-content">
-                Was bedeutet „Geld verstehen“ eigentlich? Es geht darum, die Grundlagen unseres Finanzsystems
-                zu kennen: den Unterschied zwischen Einnahmen und Ausgaben zu verstehen, Bedürfnisse von
-                Wünschen zu unterscheiden und zu begreifen, warum viele Menschen keine Klarheit über ihre
-                Finanzen haben. Dies ist der erste Schritt auf dem Weg zur finanziellen Unabhängigkeit.
-              </p>
-
-              <p className="text-content">
-                Du bist nicht allein mit deinen Fragen. Viele Menschen haben ähnliche Unsicherheiten, wenn es
-                um Geld geht. Aber das Gute ist: Du kannst lernen, wie Geld funktioniert. Mit dem richtigen
-                Wissen kannst du deine finanzielle Situation verbessern und langfristig mehr Kontrolle über
-                dein Geld gewinnen.
-              </p>
-
-              <p className="text-content">
-                Beginne damit, deine Ausgaben zu analysieren. Verstehe, wofür du dein Geld ausgibst, und lerne,
-                Prioritäten zu setzen. Nur wer Geld versteht, kann es auch erfolgreich verwalten. Starte heute
-                und mache den ersten Schritt zu einem besseren Verständnis deiner Finanzen.
-              </p>
-            </div>
           </div>
         </div>
       </section>
