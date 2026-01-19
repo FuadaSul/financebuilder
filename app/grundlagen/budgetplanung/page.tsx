@@ -239,3 +239,31 @@ export default function BudgetplanungPage() {
   );
 }
 
+<section id="budget-erstellen" className="budget-section">
+  <div className="container">
+    <h1 className="budget-title">Mein Budget erstellen</h1>
+    <p className="budget-subtitle">
+      Erstelle deine persönliche Budgetplanung und behalte den Überblick über deine Finanzen
+    </p>
+
+    {/* NEUER WRAPPER */}
+    <div className="budget-layout">
+      {/* linke Spalte: Formular + Summen */}
+      <div className="budget-column-left">
+        {/* dein Einnahmen-/Ausgabenformular usw. */}
+      </div>
+
+      {/* rechte Spalte: Donut-Chart + Tipp-Text */}
+      <div className="budget-column-right">
+        {/* dein Kreis-Chart + Text */}
+      </div>
+    </div>
+
+    {/* Zurück-Button */}
+    <div className="budget-back-wrapper">
+      <button className="budget-back-button">
+        ← Zurück zu Budgetplanung
+      </button>
+    </div>
+  </div>
+</section>

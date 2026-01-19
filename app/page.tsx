@@ -1110,44 +1110,57 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+<div
+  style={{
+    marginTop: "1rem",
+    paddingTop: "0.75rem",
+    borderTop: "1px solid rgba(255,255,255,0.2)",
+    color: "white",
+    textAlign: "center",
+    fontSize: "0.875rem",
+  }}
+>
+  <p>©️ 2024 Finanzielle Freiheit. Alle Rechte vorbehalten.</p>
 
-          {/* unterer Bereich mit Text + Links */}
-          <div
-            style={{
-              marginTop: "1rem",
-              paddingTop: "0.75rem",
-              borderTop: "1px solid rgba(255,255,255,0.2)",
-              color: "white",
-              textAlign: "center",
-              fontSize: "0.875rem",
-            }}
-          >
-            <p>© 2024 Finanzielle Freiheit. Alle Rechte vorbehalten.</p>
-            <p style={{ marginTop: "0.5rem" }}>
-              <a
-                href="/legal"
-                style={{
-                  textDecoration: "underline",
-                  marginRight: "1rem",
-                  color: "white",
-                }}
-              >
-                Impressum
-              </a>
-              <a
-                href="/legal"
-                style={{
-                  textDecoration: "underline",
-                  color: "white",
-                }}
-              >
-                Datenschutz
-              </a>
-            </p>
-          </div>
-        </div>
-        <div style={{ marginTop: "12px", fontSize: "14px", textAlign: "center" }}>
-  
+  <p style={{ marginTop: "0.75rem", opacity: 0.9 }}>
+    <strong style={{ fontWeight: 600 }}>
+      Studentisches Lehrprojekt:
+    </strong>{" "}
+    Diese Website ist eine Studierendenarbeit der Hochschule Reutlingen zu Lehr-
+    und Lernzwecken. Alle Inhalte, Produkte und Dienstleistungen sind fiktiv und
+    nicht geprüft. Bitte geben Sie keine sensiblen oder personenbezogenen Daten
+    ein.{" "}
+    <a
+      href="/legal"
+      style={{ textDecoration: "underline", color: "white" }}
+    >
+      Mehr Informationen im Impressum →
+    </a>
+  </p>
+
+  <p style={{ marginTop: "0.75rem" }}>
+    <a
+      href="/legal"
+      style={{
+        textDecoration: "underline",
+        marginRight: "1rem",
+        color: "white",
+      }}
+    >
+      Impressum
+    </a>
+    <a
+      href="/legal"
+      style={{
+        textDecoration: "underline",
+        color: "white",
+      }}
+    >
+      Datenschutz
+    </a>
+  </p>
+</div>
+        
 </div>
 
       </footer>

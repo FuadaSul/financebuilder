@@ -2533,3 +2533,63 @@ svg circle {
 .legal-content {
   padding-top: 4px;
 }
+/* Grid-Layout für Budget-Seite */
+.budget-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: flex-start;
+  margin-top: 24px;
+}
+
+/* Links & rechts vollbreit auf Mobile */
+.budget-column-left,
+.budget-column-right {
+  width: 100%;
+}
+
+/* Zurück-Button mittig und mit Abstand */
+.budget-back-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 32px 0 16px;
+}
+
+.budget-back-button {
+  background: #17451f;         /* dein Dunkelgrün */
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 32px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Hover-Effekt optional */
+.budget-back-button:hover {
+  filter: brightness(1.05);
+}
+
+/* ======= RESPONSIVE TEIL ======= */
+@media (max-width: 900px) {
+  .budget-layout {
+    grid-template-columns: 1fr;   /* untereinander statt nebeneinander */
+  }
+
+  .budget-column-right {
+    order: 2;                     /* optional: Reihenfolge ändern */
+  }
+
+  .budget-column-left {
+    order: 1;
+  }
+
+  .budget-back-wrapper {
+    margin-top: 24px;
+  }
+
+  .budget-back-button {
+    width: 100%;
+    max-width: 360px;
+  }
+}
