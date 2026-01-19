@@ -323,11 +323,14 @@ export default function GrundlagenPage() {
         {/* BUDGET ERSTELLEN */}
         {/* ===================== */}
         <section id="budget-erstellen" className="budget-erstellen-section">
-          <div className="container">
-            <h2 className="budget-erstellen-title">Budget erstellen</h2>
-            <p className="budget-erstellen-subtitle">
-              Erstelle dein persönliches Budget und behalte deine Finanzen im Blick
-            </p>
+  <div className="budget-container">
+    <h2 className="budget-title">Budget erstellen</h2>
+    <p className="budget-subtitle">
+      Erstelle dein persönliches Budget und behalte deine Finanzen im Blick
+    </p>
+  </div>
+</section>
+
 
             {/* Bild */}
             <div className="budget-erstellen-image-container">
@@ -450,8 +453,7 @@ export default function GrundlagenPage() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+         
 
         {/* ===================== */}
         {/* SCHULDEN VERMEIDEN */}

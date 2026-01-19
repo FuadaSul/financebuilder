@@ -632,7 +632,36 @@ h3 {
     font-weight: 500;
 }
 
-/* Budgetplanung Seite */
+/* Budgetplanung Seite */.budget-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 16px;
+  text-align: center;
+}
+
+.budget-title {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.budget-subtitle {
+  font-size: 1rem;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .budget-title {
+    font-size: 1.6rem;
+  }
+
+  .budget-subtitle {
+    font-size: 0.95rem;
+  }
+}
+
 .budgetplanung-section {
     background-color: var(--bg-light-green);
     padding: 100px 0;
