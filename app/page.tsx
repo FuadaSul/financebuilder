@@ -436,9 +436,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ===================== */}
-        {/* BUDGET ERSTELLEN      */}
-        {/* ===================== */}
         <section id="budget-erstellen" className="budget-erstellen-section">
   <div className="container">
     <h2 className="budget-erstellen-title">Mein Budget erstellen</h2>
@@ -553,7 +550,8 @@ export default function HomePage() {
         <h3>Budget-Übersicht</h3>
 
         <div className="pie-chart-container-custom">
-          <BudgetLiveCircle categories={circleCategories} />
+        <BudgetLiveCircle categories={circleCategories} totalIncome={income} />
+
         </div>
 
         {circleCategories.length === 0 && (
@@ -571,7 +569,6 @@ export default function HomePage() {
     </div>
   </div>
 </section>
-
 
         {/* ===================== */}
         {/* SCHULDEN VERMEIDEN    */}
