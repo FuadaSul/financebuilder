@@ -267,47 +267,72 @@ export default function HomePage() {
         {/* ===================== */}
         {/* GRUNDLAGEN            */}
         {/* ===================== */}
-        <section id="grundlagen" className="grundlagen-section">
-  <div className="container">
-    <h2 className="section-title">Grundlagen der Finanzen</h2>
-    <p className="section-subtitle">Starte mit den Basics – verständlich erklärt</p>
+        <section id="grundlagen" className="grundlagen">
+          <div className="container">
+            <h2 className="section-title">Grundlagen der Finanzen</h2>
+            <p className="section-subtitle">
+              Starte mit den Basics - verständlich erklärt
+            </p>
+            <div className="cards-grid">
+              <a href="#geld-verstehen" className="finance-card finance-card-link">
+                <div className="card-image">
+                  <img
+                    src="/geld-verstehen-karte.png"
+                    alt="Geld verstehen"
+                    className="card-image-img"
+                  />
+                </div>
+                <div className="card-footer">
+                  <h3>Geld verstehen</h3>
+                  <p>
+                    Lerne die Grundlagen unseres Finanzsystems kennen und verstehe,
+                    wie Geld funktioniert. Erfahre, wie du fundierte finanzielle
+                    Entscheidungen treffen kannst.
+                  </p>
+                </div>
+              </a>
 
-    <div className="cards-grid">
-      {/* Karte 1 */}
-      <a href="#geld-verstehen" className="finance-card">
-        <div className="card-image">
-          <img src="/geld-verstehen-karte.png" alt="Geld verstehen" className="card-image-img" />
-        </div>
-        <div className="card-footer">
-          <h3>Geld verstehen</h3>
-          <p>Lerne, wie unser Finanzsystem funktioniert und wie du bessere Entscheidungen triffst.</p>
-        </div>
-      </a>
+              <a href="#budgetplanung" className="finance-card finance-card-link">
+                <div className="card-image">
+                  <img
+                    src="/budgetplanung-karte.png"
+                    alt="Budgetplanung"
+                    className="card-image-img"
+                  />
+                </div>
+                <div className="card-footer">
+                  <h3>Budgetplanung</h3>
+                  <p>
+                    Erstelle deine persönliche Budgetplanung und behalte den
+                    Überblick über deine Einnahmen und Ausgaben. So kannst du gezielt
+                    sparen und deine Finanzen im Griff behalten.
+                  </p>
+                </div>
+              </a>
 
-      {/* Karte 2 */}
-      <a href="#budgetplanung" className="finance-card">
-        <div className="card-image">
-          <img src="/budgetplanung-karte.png" alt="Budgetplanung" className="card-image-img" />
-        </div>
-        <div className="card-footer">
-          <h3>Budgetplanung</h3>
-          <p>Erstelle ein persönliches Budget und behalte Einnahmen und Ausgaben im Blick.</p>
-        </div>
-      </a>
-
-      {/* Karte 3 */}
-      <a href="#schulden-vermeiden" className="finance-card">
-        <div className="card-image">
-          <img src="/schulden-vermeiden-karte.png" alt="Schulden vermeiden" className="card-image-img" />
-        </div>
-        <div className="card-footer">
-          <h3>Schulden vermeiden</h3>
-          <p>Praktische Tipps um finanzielle Engpässe zu vermeiden und Kontrolle zu behalten.</p>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
+              <a
+                href="#schulden-vermeiden"
+                className="finance-card finance-card-link"
+              >
+                <div className="card-image">
+                  <img
+                    src="/schulden-vermeiden-karte.png"
+                    alt="Schulden vermeiden"
+                    className="card-image-img"
+                  />
+                </div>
+                <div className="card-footer">
+                  <h3>Schulden vermeiden</h3>
+                  <p>
+                    Lerne, wie du Schulden vermeidest und deine Finanzen unter
+                    Kontrolle behältst. Erfahre praktische Tipps für einen
+                    verantwortungsvollen Umgang mit Geld.
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
 
         {/* ===================== */}
         {/* GELD VERSTEHEN        */}
@@ -454,14 +479,14 @@ export default function HomePage() {
 
               <label>Betrag (EUR)</label>
               <input
-  type="number"
-  className="expense-amount"
-  placeholder="0.00"
-  min="0"
-  step="0.01"
-  value={row.amount}
-  onChange={(e) => updateRow(row.id, { amount: e.target.value })}
-/>
+                type="number"
+                className="expense-amount"
+                placeholder="0.00"
+                min="0"
+                step="0.01"
+                value={row.amount}
+                onChange={(e) => updateRow(row.id, { amount: Number(e.target.value) || 0 })}
+              />
 
               <button
                 type="button"
